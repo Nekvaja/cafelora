@@ -43,9 +43,11 @@ document.querySelector('.rollout-nav').addEventListener('click', () => (
 
 const handleSubmit = async (event) => {
  event.preventDefault();
-  const id = event.target.dataset.id;
+  const id = Number(event.target.dataset.id);
 
-  
+  const drink = drinks.find((drink) => (drink.id === id))
+  console.log(drink)
+  console.log(id)
   
   const objednano = await fetch(`http://localhost:4000/api/drinks/${id}`, {
   
@@ -53,7 +55,7 @@ const handleSubmit = async (event) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify([{ op: 'replace', path: '/ordered', value: true}]),
+    body: JSON.stringify([{ op: 'replace', path: '/ordered', value: !drink.ordered }]),
   },
   );
 

@@ -1,7 +1,8 @@
 import './Header.css';
 
 export const Header = () => (
-    <header>
+    <>
+    <header id="home">
       <div className="header__content container">
         <div className="site-logo"></div>
 
@@ -17,4 +18,5 @@ export const Header = () => (
 
       </div>
     </header>
+    </>
 )

@@ -29,6 +29,7 @@ document.querySelector('#root').innerHTML = render(
 );
 
 
+// MENU HAMBURGER
 
 document.querySelector('.nav-btn').addEventListener('click', () => (
   document.querySelector('.rollout-nav').classList.toggle('nav-closed')
@@ -36,4 +37,33 @@ document.querySelector('.nav-btn').addEventListener('click', () => (
 
 document.querySelector('.rollout-nav').addEventListener('click', () => (
   document.querySelector('.rollout-nav').classList.add('nav-closed')
+));
+
+// Objednací tlačítko
+
+const handleSubmit = async (event) => {
+ event.preventDefault();
+  const id = event.target.dataset.id;
+
+  
+  
+  const objednano = await fetch(`http://localhost:4000/api/drinks/${id}`, {
+  
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify([{ op: 'replace', path: '/ordered', value: true}]),
+  },
+  );
+
+  window.location.reload()
+
+
+};
+
+
+
+document.querySelectorAll('.drink__controls').forEach((btnObjednat) =>( //posluchař události na formulář
+  btnObjednat.addEventListener('submit', handleSubmit)
 ));
